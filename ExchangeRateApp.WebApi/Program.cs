@@ -2,6 +2,7 @@ using ExchangeRateApp.ApiClient.Nbp;
 using ExchangeRateApp.Business.Implementations;
 using ExchangeRateApp.Common.ConfiguationOptions;
 using ExchangeRateApp.Common.Interfaces;
+using ExchangeRateApp.WebApi.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,10 @@ builder.Host.UseSerilog();
 builder.Services.AddScoped<ICurrencyExchangeService, CurrencyExchangeService>();
 builder.Services.AddScoped<ICurrencyApiClientFactory, CurrencyApiClientFactory>();
 builder.Services.AddScoped<ICurrencyApiClient, NbpCurrencyApiClient>();
+
+builder.Services.AddApiHttpClient<NbpCurrencyApiClient>("Nbp");
+
+builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
