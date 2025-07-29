@@ -14,6 +14,7 @@ builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddScoped<ICurrencyExchangeService, CurrencyExchangeService>();
+builder.Services.AddScoped<ICurrencyApiClientFactory, CurrencyApiClientFactory>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
