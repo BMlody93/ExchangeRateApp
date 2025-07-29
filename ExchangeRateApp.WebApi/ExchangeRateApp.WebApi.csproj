@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ExchangeRateApp.ApiClient.Nbp\ExchangeRateApp.ApiClient.Nbp.csproj" />
     <ProjectReference Include="..\ExchangeRateApp.Business\ExchangeRateApp.Business.csproj" />
     <ProjectReference Include="..\ExchangeRateApp.Common\ExchangeRateApp.Common.csproj" />
