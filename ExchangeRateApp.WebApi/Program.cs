@@ -1,4 +1,6 @@
+using ExchangeRateApp.Business.Implementations;
 using ExchangeRateApp.Common.ConfiguationOptions;
+using ExchangeRateApp.Common.Interfaces;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,7 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 // Add services to the container.
+builder.Services.AddScoped<ICurrencyExchangeService, CurrencyExchangeService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
