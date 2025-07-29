@@ -1,22 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ExchangeRateApp.ApiClient.Nbp\ExchangeRateApp.ApiClient.Nbp.csproj" />
-    <ProjectReference Include="..\ExchangeRateApp.Business\ExchangeRateApp.Business.csproj" />
     <ProjectReference Include="..\ExchangeRateApp.Common\ExchangeRateApp.Common.csproj" />
   </ItemGroup>
 
