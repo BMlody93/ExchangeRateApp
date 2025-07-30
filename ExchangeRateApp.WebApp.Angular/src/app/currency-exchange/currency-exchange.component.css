@@ -1,0 +1,40 @@
+.exchange-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 48%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 4%;
+  margin: 16px 0;
+}
+
+.button-row {
+  margin-top: 16px;
+  text-align: right;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+table {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 8px;
+}

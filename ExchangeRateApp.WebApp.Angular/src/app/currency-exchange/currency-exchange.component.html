@@ -1,0 +1,102 @@
+<div *ngIf="loadingCurrencies || loadingExchange" class="loading-spinner">
+  <mat-spinner diameter="40"></mat-spinner>
+</div>
+
+<form [formGroup]="exchangeForm" (ngSubmit)="onSubmit()" class="exchange-form" *ngIf="!loadingCurrencies && !loadingExchange">
+
+  <!-- API Dropdown -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>API</mat-label>
+    <mat-select formControlName="apiName">
+      <mat-option value="">-- Select API --</mat-option>
+      <mat-option *ngFor="let api of apis" [value]="api">{{ api }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-divider></mat-divider>
+
+  <!-- Currency dropdowns in one row -->
+  <div class="row">
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>From Currency</mat-label>
+      <mat-select formControlName="from" [disabled]="!currencies.length">
+        <mat-option value="">-- Select Currency --</mat-option>
+        <mat-option *ngFor="let c of currencies" [value]="c.currencyCode">
+          {{ c.currencyCode }} - {{ c.currencyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>To Currency</mat-label>
+      <mat-select formControlName="to" [disabled]="!currencies.length">
+        <mat-option value="">-- Select Currency --</mat-option>
+        <mat-option *ngFor="let c of currencies" [value]="c.currencyCode">
+          {{ c.currencyCode }} - {{ c.currencyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Date pickers in one row -->
+  <div class="row">
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Date From</mat-label>
+      <input matInput [matDatepicker]="pickerFrom" formControlName="dateFrom" />
+      <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFrom></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Date To</mat-label>
+      <input matInput [matDatepicker]="pickerTo" formControlName="dateTo" />
+      <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+      <mat-datepicker #pickerTo></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Submit button -->
+  <div class="button-row">
+    <button mat-raised-button color="primary" type="submit" [disabled]="exchangeForm.invalid || loadingExchange">
+      Calculate
+    </button>
+  </div>
+
+</form>
+
+<div *ngIf="exchangeResult">
+  <h3 class="mat-headline">
+    Exchange Rate from {{ exchangeResult.from.currencyName }} to {{ exchangeResult.to.currencyName }}
+  </h3>
+
+  <p>
+    Min: 1 {{ exchangeResult.from.currencyCode }} = {{ exchangeResult.min | number:'1.4-4' }} {{ exchangeResult.to.currencyCode }} <br>
+    Max: 1 {{ exchangeResult.from.currencyCode }} = {{ exchangeResult.max | number:'1.4-4' }} {{ exchangeResult.to.currencyCode }} <br>
+    Avg: 1 {{ exchangeResult.from.currencyCode }} = {{ exchangeResult.avg | number:'1.4-4' }} {{ exchangeResult.to.currencyCode }}
+  </p>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let rate"> {{ rate.date }} </td>
+    </ng-container>
+
+    <!-- Value Column -->
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Rate </th>
+      <td mat-cell *matCellDef="let rate">
+        1 {{ exchangeResult.from.currencyCode }} = {{ rate.value | number:'1.4-4' }} {{ exchangeResult.to.currencyCode }}
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
