@@ -68,6 +68,10 @@
 
 </form>
 
+<div *ngIf="error" class="error-message">
+  {{ error }}
+</div>
+
 <div *ngIf="exchangeResult">
   <h3 class="mat-headline">
     Exchange Rate from {{ exchangeResult.from.currencyName }} to {{ exchangeResult.to.currencyName }}

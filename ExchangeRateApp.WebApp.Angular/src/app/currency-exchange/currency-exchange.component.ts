@@ -72,7 +72,12 @@ export class CurrencyExchangeComponent implements OnInit {
   ngOnInit(): void {
     this.service.getApis().subscribe({
       next: (apis) => this.apis = apis,
-      error: (err) => this.error = 'Failed to load APIs'
+      error: (err) => {
+        console.error(err);
+        const message = err?.error || 'Unexpected error occurred';
+        this.error = `Failed to load APIs: ${message}`;
+        this.loadingCurrencies = false;
+      }
     });
 
     // gdy zmieni się API, pobierz waluty
@@ -86,8 +91,10 @@ export class CurrencyExchangeComponent implements OnInit {
             this.currencies = currencies;
             this.loadingCurrencies = false;
           },
-          error: () => {
-            this.error = 'Failed to load currencies';
+          error: (err) => {
+            console.error(err);
+            const message = err?.error || 'Unexpected error occurred';
+            this.error = `Failed to load currencies: ${message}`;
             this.loadingCurrencies = false;
           }
         });
@@ -118,8 +125,10 @@ export class CurrencyExchangeComponent implements OnInit {
           this.dataSource.data = result.rates
           this.loadingExchange = false;
         },
-        error: () => {
-          this.error = 'Failed to calculate exchange';
+        error: (err) => {
+          console.error(err);
+          const message = err?.error || 'Unexpected error occurred';
+          this.error = `Failed to calculate exchange: ${message}`;
           this.loadingExchange = false;
         }
       });

@@ -38,3 +38,14 @@ table {
 .mat-header-cell, .mat-cell {
   padding: 8px;
 }
+
+.error-message {
+  color: #b00020;
+  background-color: #fdd;
+  border: 1px solid #b00020;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
